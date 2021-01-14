@@ -11,7 +11,7 @@ Tag/Tag colour changing for Minecraft servers using Skript.
 - Nametag name colour change
 - Possibility to toggle on/off original nametag modification
 
-## Dependencies:
+## Dependencies
 
 - Skript 2.5.3
 - SkBee 1.9.1
