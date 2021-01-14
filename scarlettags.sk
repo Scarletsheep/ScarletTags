@@ -23,10 +23,6 @@ variables:
 	# Ex: John -> NotJohn
 	{AllowNicknameChange} = false
 
-	# Changes wether this script modifies the color
-	# of the nametags above the player's head
-	{AllowNametagChange} = true
-
 
 options:
 
