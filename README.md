@@ -13,12 +13,12 @@ Tag/Tag colour changing for Minecraft servers using Skript.
 
 ## Dependencies
 
-- Skript 2.5.3
-- SkBee 1.9.1
-- ProtocolLib 4.5.1
-- Tablinsku 1.0
-- TuSKe 1.8.2
+- [Skript](https://github.com/SkriptLang/Skript/releases)
+- [SkBee](https://www.spigotmc.org/resources/skbee-skript-addon.75839/)
+- [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
+- [Tablisknu](https://forums.skunity.com/resources/tablisknu.727/)
+- [TuSKe](https://www.spigotmc.org/resources/tuske.25136/)
 
-## Usage
+## Installation & Usage
 
-Please see the [wiki](https://github.com/Scarletsheep/ScarletTags/wiki) for usage of the script.
+Please see the [wiki](https://github.com/Scarletsheep/ScarletTags/wiki) for installation, usage, settings and permissions.
