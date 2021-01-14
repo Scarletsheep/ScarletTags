@@ -41,7 +41,7 @@ function isNicknameChanged(player: player, newNickname: text) :: Boolean:
 	set {_newBaseNickname} to regex replace all pattern "&(?<=&)[\w]" with "" in "%{_newNickname}%"
 
 	# Performs check
-	if "%{_newBaseNickname}%" is "%{_player}%":
+	if "%{_newBaseNickname}%" regex matches "%{_player}%":
 		return false
 	else:
 		return true
