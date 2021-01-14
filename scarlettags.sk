@@ -39,8 +39,6 @@ function isNicknameChanged(player: player, newNickname: text) :: Boolean:
 
 	# Removes color codes
 	set {_newBaseNickname} to regex replace all pattern "&(?<=&)[\w]" with "" in {_newNickname}
-	broadcast {_newBaseNickname}
-	broadcast {_player}
 
 	# Performs check
 	if {_newBaseNickname} is {_player}:
