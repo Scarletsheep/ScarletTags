@@ -1,5 +1,5 @@
 # ScarletTags
-Tag/Tag colour changing for Minecraft servers.
+Tag/Tag colour changing for Minecraft servers using Skript.
 
 ## Features
 
