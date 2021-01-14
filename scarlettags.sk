@@ -38,10 +38,10 @@ function isNicknameChanged(player: player, newNickname: text) :: Boolean:
 	# Checks if the base name is still intact #
 
 	# Removes color codes
-	set {_newBaseNickname} to regex replace all pattern "&(?<=&)[\w]" with "" in {_newNickname}
+	set {_newBaseNickname} to regex replace all pattern "&(?<=&)[\w]" with "" in "%{_newNickname}%"
 
 	# Performs check
-	if {_newBaseNickname} is {_player}:
+	if "%{_newBaseNickname}%" is "%{_player}%":
 		return false
 	else:
 		return true
@@ -200,7 +200,7 @@ command /stag <text="help"> [<player>] [<text>] [<boolean>] [<text>]:
 								exit
 
 						# Variables management
-						set {tag.%player%} to colored arg 3
+						set {tag.%player%} to arg 3
 
 						# Name modification
 						set player's default nametag to colored arg 3
@@ -255,7 +255,7 @@ command /stag <text="help"> [<player>] [<text>] [<boolean>] [<text>]:
 								exit
 
 						# Variables management
-						set {tag.%player%} to colored arg 3
+						set {tag.%player%} to arg 3
 
 						# Name modification
 						set player's default nametag to colored arg 3
