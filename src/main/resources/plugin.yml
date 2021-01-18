@@ -1,0 +1,10 @@
+name: ScarletTags
+version: 0.1.0
+author: Scarletsheep
+main: me.Scarletsheep.ScarletTags.Main
+api-version: 1.16
+commands:
+  stag:
+    description: Main command for the plugin
+    usage: /<command> <text>
+    permission: ScarletTags.stag

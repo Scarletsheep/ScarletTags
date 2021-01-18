@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ScarletTags:jar">
+    <output-path>E:/Mc/testserver/plugins</output-path>
+    <root id="archive" name="ScarletTags.jar">
+      <element id="module-output" name="ScarletTags" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/spigot-api-1.16.4-R0.1-20210111.222259-45-shaded.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,3 @@
+# Allows for a player to change its base nickname
+# Ex: John -> NotJohn
+AllowNicknameChange: true
