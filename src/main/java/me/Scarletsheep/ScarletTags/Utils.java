@@ -2,10 +2,7 @@ package me.Scarletsheep.ScarletTags;
 
 import me.Scarletsheep.ScarletTags.errors.NicknameChangeNotAllowed;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 
 import java.util.List;
 
@@ -42,48 +39,99 @@ public class Utils {
             player.setPlayerListName(newTag);
         }
 
-        if (Main.config.getBoolean("UseArmorStandAsNameTag")) {
-            // Removing previous Armor Stands
-            List<Entity> passengers = player.getPassengers();
-            for (Entity passenger : passengers) {
-                if (passenger.getCustomName().equals(oldDisplayName)) {
-                    player.removePassenger(passenger);
-                    passenger.remove();
+        // Entities set as nametag
+        if (Main.config.getBoolean("UseEntitiesAsNametag")) {
+            // Calling for previous tags removal
+            removePlayerNametagEntities(player);
+
+            // Armor Stand creation
+            Entity marker = player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
+            ArmorStand armorStand = (ArmorStand) marker;
+
+            armorStand.setCustomName(player.getDisplayName());
+            armorStand.setGravity(false);
+            armorStand.setSilent(true);
+            armorStand.setPersistent(true);
+            armorStand.setMarker(true);
+            armorStand.setCollidable(false);
+            armorStand.setInvisible(true);
+            armorStand.setCustomNameVisible(true);
+
+            // Slime creation
+            Entity entity = player.getWorld().spawnEntity(player.getLocation(), EntityType.SLIME);
+            Slime slime = (Slime) entity;
+
+            slime.setPersistent(true);
+            slime.setGravity(false);
+            slime.setSilent(true);
+            slime.setInvulnerable(true);
+            slime.setInvisible(true);
+            slime.setCollidable(false);
+            slime.setAI(false);
+            slime.setSize(1);
+
+            // Player entities addition
+            slime.addPassenger(armorStand);
+            player.addPassenger(slime);
+
+            // Entities save in database
+            DataService.saveVariable(
+                            player.getUniqueId(),
+                            "armorStand",
+                            armorStand.getUniqueId().toString());
+            DataService.saveVariable(
+                    player.getUniqueId(),
+                    "slime",
+                    slime.getUniqueId().toString());
+        }
+    }
+
+    public static void removePlayerNametagEntities(Player player) {
+        String armorStandId = "", slimeId = "";
+
+        // Armor Stand check
+        if(DataService.checkVariable(player.getUniqueId(), "armorStand")) {
+            armorStandId = DataService.getVariable(player.getUniqueId(), "armorStand");
+        }
+
+        // Slime check
+        if(DataService.checkVariable(player.getUniqueId(), "slime")) {
+            slimeId = DataService.getVariable(player.getUniqueId(), "slime");
+        }
+
+        // Removing entities from global list to preserve eventual
+        // player passengers that are not from ScarletTags
+        List<LivingEntity> livingEntities = player.getWorld().getLivingEntities();
+        for(LivingEntity entity : livingEntities) {
+            // Armor Stand id comparison
+            if (!armorStandId.equals("")) {
+                if (entity.getUniqueId().toString().equals(armorStandId)) {
+                    entity.remove();
                 }
             }
 
-            // Setting Armor Stand as player's nametag
-            Entity entity = player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
-
-            // Armor Stand configuration
-            entity.setCustomName(player.getDisplayName());
-            entity.setGravity(false);
-            entity.setInvulnerable(true);
-            entity.setSilent(true);
-            entity.setPersistent(true);
-
-            ArmorStand armorStand = (ArmorStand) entity;
-
-            armorStand.setInvisible(true);
-            armorStand.setCollidable(false);
-            armorStand.setSmall(true);
-            entity.setCustomNameVisible(true);
-
-            // Adding Armor Stand as passenger of player
-            player.addPassenger(armorStand);
+            // Slime id comparison
+            if (!slimeId.equals("")) {
+                if (entity.getUniqueId().toString().equals(slimeId)) {
+                    entity.remove();
+                }
+            }
         }
+
+        // Database clear
+        DataService.removeVariable(player.getUniqueId(), "armorStand");
+        DataService.removeVariable(player.getUniqueId(), "slime");
     }
 
     public static void resetPlayerTag(Player player) {
         player.setDisplayName(player.getName());
         player.setPlayerListName(player.getName());
+        removePlayerNametagEntities(player);
     }
 
     public static boolean isNicknameChanging(Player player, String newTag) {
         String baseOldTag = player.getName();
         String baseNewTag = ChatColor.stripColor(newTag);
-
-        player.sendMessage(baseOldTag + " " + newTag);
 
         // Nickname change check
         if (baseOldTag.equals(baseNewTag)) {

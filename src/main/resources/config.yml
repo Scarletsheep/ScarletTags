@@ -1,3 +1,12 @@
 # Allows for a player to change its base nickname
 # Ex: John -> NotJohn
-AllowNicknameChange: true
+AllowNicknameChange: false
+
+# Toggles chat tag colouring and modification on /stag set and /stag setother
+AllowChatTagModification: true
+
+# Toggles tablist tag colouring and modification on /stag set and /stag setother
+AllowTablistTagModification: true
+
+# Toggles use of entities for nametag display
+UseEntitiesAsNametag: true

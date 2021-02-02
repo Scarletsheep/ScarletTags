@@ -31,8 +31,9 @@ public class DataService {
 
             // Database transformation in map
             for (String[] variable : tempDatabase) {
+                Main.plugin.getLogger().info(variable.toString());
                 // Format: uuid.variableName, value
-                database.put(variable[0] + variable[1], variable[2]);
+                database.put(variable[0], variable[1]);
             }
 
         } catch (IOException e) {
@@ -74,17 +75,17 @@ public class DataService {
 
     public static boolean checkVariable(UUID uuid, String variableName) {
         // Checks if provided variable is present
-        String playerVariable = uuid.toString() + ".tag";
+        String playerVariable = uuid.toString() + "." + variableName;
         return database.containsKey(playerVariable);
     }
 
     public static String getVariable(UUID uuid, String variableName) {
-        String playerVariable = uuid.toString() + ".tag";
+        String playerVariable = uuid.toString() + "." + variableName;
         return database.get(playerVariable);
     }
 
     public static void removeVariable(UUID uuid, String variableName) {
-        String playerVariable = uuid.toString() + ".tag";
+        String playerVariable = uuid.toString() + "." + variableName;
         database.remove(playerVariable);
     }
 }
